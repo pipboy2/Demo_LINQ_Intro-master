@@ -10,7 +10,7 @@ namespace Demo_LINQ_ClassOfProducts
 {
 
     /// <summary>
-    /// 
+    /// Test
     /// </summary>
     // demo adapted from MSDN demo
     // https://code.msdn.microsoft.com/SQL-Ordering-Operators-050af19e/sourcecode?fileId=23914&pathId=1978010539
