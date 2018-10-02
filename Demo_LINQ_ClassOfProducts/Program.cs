@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace Demo_LINQ_ClassOfProducts
 {
 
-    /// <summary>
-    /// Test
-    /// </summary>
+
     // demo adapted from MSDN demo
     // https://code.msdn.microsoft.com/SQL-Ordering-Operators-050af19e/sourcecode?fileId=23914&pathId=1978010539
     //
@@ -29,6 +27,12 @@ namespace Demo_LINQ_ClassOfProducts
             OrderByCatagory(productList);
 
             OrderByCatagoryAnoymous(productList);
+
+            OrderByUnits(productList);
+
+            OrderByPrice(productList);
+
+            //FindExpensive(productList);
 
             //
             // Write the following methods
@@ -155,11 +159,115 @@ namespace Demo_LINQ_ClassOfProducts
             }
 
             Console.WriteLine();
-            Console.WriteLine(TAB + "Average Price:".PadRight(20) + average.ToString("C2").PadLeft(15));
+            Console.WriteLine(TAB + "Average Price:".PadRight(20) + average.ToString().PadLeft(15));
 
             Console.WriteLine();
             Console.WriteLine(TAB + "Press any key to continue.");
             Console.ReadKey();
         }
+        private static void OrderByUnits(List<Product> products)
+        {
+            string TAB = "   ";
+
+            Console.Clear();
+            Console.WriteLine(TAB + "List all products and sort by the number of units less then 10.");
+            Console.WriteLine();
+
+            //
+            // query syntax
+            //
+            var sortedProducts =
+                from product in products
+                where product.UnitsInStock < 10 
+                orderby product.UnitsInStock descending
+                select product;
+
+            //
+            // lambda syntax
+            //
+            //var sortedProducts = products.Where(p => p.Category == "Beverages").OrderByDescending(p => p.UnitPrice);
+
+            Console.WriteLine(TAB + "Product Name".PadRight(15) + "Total Units".PadLeft(15));
+            Console.WriteLine(TAB + "--------".PadRight(15) + "------------".PadLeft(15));
+
+            foreach (Product product in sortedProducts)
+            {
+                Console.WriteLine(TAB + product.ProductName.PadRight(15) + product.UnitsInStock.ToString().PadLeft(15));
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(TAB + "Press any key to continue.");
+            Console.ReadKey();
+        }
+        private static void OrderByPrice(List<Product> products)
+        {
+            string TAB = "   ";
+
+            Console.Clear();
+            Console.WriteLine(TAB + "List all products that are less then $10.");
+            Console.WriteLine();
+
+            //
+            // query syntax
+            //
+            var sortedProducts =
+                from product in products
+                where product.UnitPrice < 10 
+                orderby product.UnitPrice descending
+                select product;
+
+            //
+            // lambda syntax
+            //
+            //var sortedProducts = products.Where(p => p.Category == "Beverages").OrderByDescending(p => p.UnitPrice);
+
+            Console.WriteLine(TAB + "Product Name".PadRight(15) + "Unit Price".PadLeft(15));
+            Console.WriteLine(TAB + "--------".PadRight(15) + "------------".PadLeft(15));
+
+            foreach (Product product in sortedProducts)
+            {
+                Console.WriteLine(TAB + product.ProductName.PadRight(15) + product.UnitPrice.ToString("C2").PadLeft(15));
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(TAB + "Press any key to continue.");
+            Console.ReadKey();
+        }
+
+        //private static void FindExpensive(List<Product> products)
+       // {
+           // string TAB = "   ";
+
+            //Console.Clear();
+            //Console.WriteLine(TAB + "List of the most expensive Seafood.");
+            //Console.WriteLine();
+
+            //
+            // query syntax
+            //
+           // var sortedProducts =
+               // from product in products
+               // where product.Category == "Seafood"
+                //group product by product.Category into productGroup
+               // let maxPrice = productGroup.Max(p => p.UnitPrice)
+                //select new {Category = productGroup.Key, MostExpensiveProducts = productGroup.Where(product => product.UnitPrice == maxPrice)};
+
+          //  //
+          //  // lambda syntax 
+           // //
+           // //var sortedProducts = products.Where(p => p.Category == "Beverages").OrderByDescending(p => p.UnitPrice);
+
+          //  Console.WriteLine(TAB + "Product Name".PadRight(15) + "Unit Price".PadLeft(15));
+          //  Console.WriteLine(TAB + "--------".PadRight(15) + "------------".PadLeft(15));
+
+          //  foreach (Product product in sortedProducts)
+           // {
+              //  Console.WriteLine(TAB + product.ProductName.PadRight(15) + product.UnitPrice.ToString("C2").PadLeft(15));
+           // }
+
+            //Console.WriteLine();
+            //Console.WriteLine(TAB + "Press any key to continue.");
+            //Console.ReadKey();
+        //}
     }
 }
